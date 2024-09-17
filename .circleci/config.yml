@@ -3,24 +3,18 @@ version: 2.1
 jobs:
   snyk-test:
     docker:
-      - image: circleci/node:14.17  # Use an official Node.js Docker image (modify if using another language)
+      - image: circleci/node:14  # Node.js Docker image
     steps:
-      - checkout  # Check out the code from the repository
+      - checkout  # Check out your code
       - run:
           name: Install dependencies
           command: npm install
       - run:
-          name: Install Snyk
-          command: npm install -g snyk
+          name: Install Snyk locally
+          command: npm install snyk
       - run:
           name: Authenticate Snyk
-          command: snyk auth $SNYK_TOKEN
+          command: npx snyk auth $SNYK_TOKEN
       - run:
-          name: Run Snyk Test
-          command: snyk test
-
-workflows:
-  version: 2
-  snyk-scan:
-    jobs:
-      - snyk-test
+          name: Run Snyk test
+          command: npx snyk test

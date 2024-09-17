@@ -18,3 +18,9 @@ jobs:
       - run:
           name: Run Snyk test
           command: npx snyk test
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - snyk-test
